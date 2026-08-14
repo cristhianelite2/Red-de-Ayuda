@@ -18,8 +18,8 @@ android {
         applicationId = "mx.reddeayuda.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 5
-        versionName = "0.3.2"
+        versionCode = 6
+        versionName = "0.4.0"
         buildConfigField("String", "MAPS_API_KEY", "\"${mapsApiKey.replace("\"", "\\\"")}\"")
         manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey.ifBlank { " " }
     }
@@ -50,4 +50,6 @@ dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("com.google.android.gms:play-services-maps:19.0.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.android.gms:play-services-wearable:18.2.0")
+    wearApp(project(":wear"))
 }

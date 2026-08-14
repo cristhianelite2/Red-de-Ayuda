@@ -98,6 +98,13 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.cardContacts).setOnClickListener {
             startActivity(Intent(this, ContactsActivity::class.java))
         }
+        findViewById<View>(R.id.cardWatch).setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.watch_card_title)
+                .setMessage(R.string.watch_card_body)
+                .setPositiveButton(android.R.string.ok, null)
+                .show()
+        }
         findViewById<MaterialButton>(R.id.btnEnableBluetooth).setOnClickListener {
             pendingSos = false
             requestBluetoothOn()
@@ -300,7 +307,14 @@ class MainActivity : AppCompatActivity() {
             )
         )
         findViewById<TextView>(R.id.txtMeta).text =
-            "Batería ${app.battery()}%  ·  cola ${app.engine.pendingCount()}"
+            "Batería ${app.battery()}%  ·  cola ${app.engine.pendingCount()}" +
+                if (app.watchSosActive) "  ·  reloj" else ""
+        findViewById<TextView>(R.id.txtWatchSub).text =
+            if (app.watchSosActive) {
+                getString(R.string.watch_active)
+            } else {
+                getString(R.string.watch_card_sub)
+            }
         val n = ContactStore.list(this).size
         findViewById<TextView>(R.id.txtContactsSub).text =
             if (n == 0) {

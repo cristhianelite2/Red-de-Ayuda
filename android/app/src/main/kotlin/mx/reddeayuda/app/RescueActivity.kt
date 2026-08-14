@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import mx.reddeayuda.platform.GeoMath
 import mx.reddeayuda.protocol.EmergencyPacket
 import mx.reddeayuda.protocol.GeoFix
+import mx.reddeayuda.protocol.ProtocolConstants
 import mx.reddeayuda.protocol.RescueAction
+import mx.reddeayuda.protocol.VitalsPayload
 
 class RescueActivity : AppCompatActivity() {
     private var selected: EmergencyPacket? = null
@@ -83,13 +85,20 @@ class RescueActivity : AppCompatActivity() {
             val dist = GeoMath.formatDistance(GeoMath.distanceMeters(me, victim))
             val lat = packet.latitudeMicrodegrees / 1_000_000.0
             val lon = packet.longitudeMicrodegrees / 1_000_000.0
-            row.findViewById<TextView>(R.id.meta).text =
-                "$dist  ·  hop ${packet.hopCount}  ·  bat ${packet.battery}%\n" +
-                    if (victim.isUnknown) {
-                        "Ubicación pendiente"
-                    } else {
-                        "${"%.5f".format(lat)}, ${"%.5f".format(lon)}"
-                    }
+            val vitals = VitalsPayload.parseLoose(packet.payload)
+            val watch = (packet.flags and ProtocolConstants.FLAG_WATCH) != 0
+            row.findViewById<TextView>(R.id.meta).text = buildString {
+                append("$dist  ·  hop ${packet.hopCount}  ·  bat ${packet.battery}%")
+                if (watch) append("  ·  reloj")
+                append("\n")
+                append(
+                    if (victim.isUnknown) "Ubicación pendiente"
+                    else "${"%.5f".format(lat)}, ${"%.5f".format(lon)}"
+                )
+                if (vitals != null && vitals.hasAny) {
+                    append("\n${vitals.toSummary()}")
+                }
+            }
             row.setOnClickListener {
                 selected = packet
                 Toast.makeText(this, "Seleccionado ${packet.shortId()}", Toast.LENGTH_SHORT).show()

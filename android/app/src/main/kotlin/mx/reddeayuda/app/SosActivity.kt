@@ -25,6 +25,7 @@ class SosActivity : AppCompatActivity() {
         findViewById<com.google.android.material.button.MaterialButton>(R.id.btnImOk).setOnClickListener {
             ContactAlerter.stopSosAlerts()
             SosLocationTracker.stop()
+            RdaApp.instance.watchSosActive = false
             RdaApp.instance.engine.imOk()
             RdaApp.instance.startMesh(sos = false)
             finish()

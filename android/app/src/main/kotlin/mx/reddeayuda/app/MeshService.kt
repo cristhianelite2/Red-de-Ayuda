@@ -26,6 +26,7 @@ class MeshService : Service() {
             ACTION_IM_OK -> {
                 ContactAlerter.stopSosAlerts()
                 SosLocationTracker.stop()
+                RdaApp.instance.watchSosActive = false
                 RdaApp.instance.engine.imOk()
                 sosMode = false
                 showForeground(sos = false)

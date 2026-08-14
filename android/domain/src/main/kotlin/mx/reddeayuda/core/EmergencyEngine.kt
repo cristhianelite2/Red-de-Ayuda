@@ -105,7 +105,9 @@ class EmergencyEngine(
     fun createEmergency(
         fix: GeoFix,
         battery: Int,
-        eventType: EventType = EventType.USER_INITIATED
+        eventType: EventType = EventType.USER_INITIATED,
+        payload: ByteArray = ByteArray(0),
+        fromWatch: Boolean = false
     ): EmergencyPacket {
         stateMachine.onEvent(StateEvent.USER_NEED_HELP)
         listener.onStateChanged(snapshot())
@@ -116,10 +118,11 @@ class EmergencyEngine(
             status = OriginStatus.NEED_HELP,
             battery = battery.coerceIn(0, 100),
             fix = fix,
-            payload = ByteArray(0)
+            payload = payload.copyOf(minOf(payload.size, ProtocolConstants.MAX_PAYLOAD)),
+            extraFlags = if (fromWatch) ProtocolConstants.FLAG_WATCH else 0
         )
         acceptLocal(packet)
-        listener.onLog("SOS creado ${packet.shortId()}")
+        listener.onLog("SOS creado ${packet.shortId()}" + if (fromWatch) " (reloj)" else "")
         return packet
     }
 
@@ -127,10 +130,15 @@ class EmergencyEngine(
      * Actualización periódica de ubicación mientras el SOS sigue activo.
      * Se propaga por la mesh; los rescatistas la fusionan con el SOS del mismo origen.
      */
-    fun createLocationUpdate(fix: GeoFix, battery: Int): EmergencyPacket? {
+    fun createLocationUpdate(
+        fix: GeoFix,
+        battery: Int,
+        payload: ByteArray = ByteArray(0),
+        fromWatch: Boolean = false
+    ): EmergencyPacket? {
         val state = stateMachine.state
         if (state != DeviceState.SOS && state != DeviceState.RESCUE_CONTACT) return null
-        if (fix.isUnknown) return null
+        if (fix.isUnknown && payload.isEmpty()) return null
         val packet = newPacket(
             type = PacketType.LOCATION_UPDATE,
             ttl = ProtocolConstants.DEFAULT_TTL,
@@ -138,11 +146,26 @@ class EmergencyEngine(
             status = OriginStatus.NEED_HELP,
             battery = battery.coerceIn(0, 100),
             fix = fix,
-            payload = ByteArray(0)
+            payload = payload.copyOf(minOf(payload.size, ProtocolConstants.MAX_PAYLOAD)),
+            extraFlags = if (fromWatch) ProtocolConstants.FLAG_WATCH else 0
         )
         acceptLocal(packet)
-        listener.onLog("LOCATION_UPDATE ${packet.shortId()}")
+        listener.onLog("LOCATION_UPDATE ${packet.shortId()}" + if (fromWatch) " (reloj)" else "")
         return packet
+    }
+
+    /** Publica signos vitales como RESPONSE (texto corto) + LOCATION_UPDATE si hay fix. */
+    fun publishVitals(
+        vitals: mx.reddeayuda.protocol.VitalsPayload,
+        fix: GeoFix,
+        battery: Int,
+        fromWatch: Boolean = true
+    ): EmergencyPacket? {
+        val state = stateMachine.state
+        if (state != DeviceState.SOS && state != DeviceState.RESCUE_CONTACT) return null
+        val summary = vitals.summaryUtf8()
+        createResponse(OriginStatus.NEED_HELP, summary, fix, battery)
+        return createLocationUpdate(fix, battery, vitals.toBytes(), fromWatch)
     }
 
     fun createAck(kind: AckKind, ref: EmergencyPacket, battery: Int = ProtocolConstants.UNKNOWN_BATTERY): EmergencyPacket {
@@ -248,12 +271,22 @@ class EmergencyEngine(
         visibleSos[key] = when {
             existing == null -> packet
             packet.type == PacketType.LOCATION_UPDATE -> existing.copy(
-                latitudeMicrodegrees = packet.latitudeMicrodegrees,
-                longitudeMicrodegrees = packet.longitudeMicrodegrees,
-                accuracyMeters = packet.accuracyMeters,
+                latitudeMicrodegrees = if (packet.accuracyMeters != ProtocolConstants.UNKNOWN_ACCURACY ||
+                    packet.latitudeMicrodegrees != 0 || packet.longitudeMicrodegrees != 0
+                ) packet.latitudeMicrodegrees else existing.latitudeMicrodegrees,
+                longitudeMicrodegrees = if (packet.accuracyMeters != ProtocolConstants.UNKNOWN_ACCURACY ||
+                    packet.latitudeMicrodegrees != 0 || packet.longitudeMicrodegrees != 0
+                ) packet.longitudeMicrodegrees else existing.longitudeMicrodegrees,
+                accuracyMeters = if (packet.accuracyMeters != ProtocolConstants.UNKNOWN_ACCURACY) {
+                    packet.accuracyMeters
+                } else {
+                    existing.accuracyMeters
+                },
                 battery = packet.battery,
                 timestamp = packet.timestamp,
-                hopCount = packet.hopCount
+                hopCount = packet.hopCount,
+                payload = if (packet.payload.isNotEmpty()) packet.payload else existing.payload,
+                flags = existing.flags or packet.flags
             )
             else -> packet.copy(
                 // Conservar coords más frescas si el SOS nuevo viene sin fix

@@ -43,6 +43,9 @@ class RdaApp : Application() {
     var wifiDirectActive: Boolean = false
         private set
 
+    @Volatile
+    var watchSosActive: Boolean = false
+
     val logs = CopyOnWriteArrayList<String>()
     val uiListeners = CopyOnWriteArrayList<(String) -> Unit>()
 
@@ -154,6 +157,7 @@ class RdaApp : Application() {
         var f = engine.flags()
         if (wifiDirectActive) f = f or ProtocolConstants.FLAG_WIFI
         if (ConnectivityHelper.isOnline(this)) f = f or ProtocolConstants.FLAG_GATEWAY
+        if (watchSosActive) f = f or ProtocolConstants.FLAG_WATCH
         return f
     }
 

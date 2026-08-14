@@ -64,6 +64,10 @@
     <string name="contacts_card_title">Red de contactos</string>
     <string name="contacts_card_sub">SMS con tu ubicación en SOS (máx. 5)</string>
     <string name="contacts_card_empty">Sin contactos — tócalo para configurar</string>
+    <string name="watch_card_title">Smartwatch (Wear OS)</string>
+    <string name="watch_card_sub">SOS, ubicación y signos vitales desde el reloj (el teléfono es el radio)</string>
+    <string name="watch_card_body">Instala Red de Ayuda en un reloj Wear OS emparejado. En el reloj pulsa SOS: el teléfono activa la mesh, SMS a contactos y reenvía ubicación + FC/SpO2 cada 5 minutos.</string>
+    <string name="watch_active">SOS activo desde el reloj</string>
     <string name="wifi_direct_on">Wi‑Fi Direct activo</string>
     <string name="wifi_direct_off">Wi‑Fi Direct no disponible</string>
 

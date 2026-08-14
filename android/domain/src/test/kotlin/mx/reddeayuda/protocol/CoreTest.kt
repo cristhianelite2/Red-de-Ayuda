@@ -188,6 +188,17 @@ class EngineAckStoreForwardTest {
     }
 
     @Test
+    fun vitalsPayloadRoundtrip() {
+        val v = mx.reddeayuda.protocol.VitalsPayload(72, 98, 3650)
+        val bytes = v.toBytes()
+        val parsed = mx.reddeayuda.protocol.VitalsPayload.parse(bytes)!!
+        assertEquals(72, parsed.heartRateBpm)
+        assertEquals(98, parsed.spo2Percent)
+        assertEquals(3650, parsed.skinTempCenti)
+        assertTrue(parsed.toSummary().contains("FC=72"))
+    }
+
+    @Test
     fun locationUpdateMergesByOriginForRescuer() {
         val victim = engine(1)
         val rescue = engine(9, DeviceRole.RESCUER)

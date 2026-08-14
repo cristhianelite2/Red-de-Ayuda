@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0] — 2026-08-14
+
+### Añadido
+- App compañera **Wear OS**: SOS desde el reloj, ubicación del reloj y signos vitales (FC / SpO2 si el hardware lo permite) cada 5 minutos.
+- El teléfono recibe el SOS del reloj por Wear Data Layer, activa la mesh (flag WATCH) y los SMS a contactos.
+- Tarjeta «Smartwatch» en el inicio; rescatistas ven vitales y marca «reloj» en la lista SOS.
+
 ## [0.3.2] — 2026-08-14
 
 ### Eliminado

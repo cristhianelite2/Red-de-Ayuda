@@ -41,6 +41,7 @@ object SosBanner {
         banner.findViewById<View>(R.id.bannerImOk).setOnClickListener {
             ContactAlerter.stopSosAlerts()
             SosLocationTracker.stop()
+            RdaApp.instance.watchSosActive = false
             RdaApp.instance.engine.imOk()
             RdaApp.instance.startMesh(sos = false)
             banner.visibility = View.GONE

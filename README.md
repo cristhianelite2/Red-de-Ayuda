@@ -6,7 +6,7 @@
 
 **Red de Ayuda** es una app de emergencia para Android que forma una red entre teléfonos por **Bluetooth** (y **Wi‑Fi Direct** si el teléfono lo soporta), sin depender de internet ni de antenas celulares. Si alguien pide ayuda (SOS), el aviso puede saltar de teléfono en teléfono hasta llegar a un rescatista. Además puede avisar a tu **red de contactos por SMS** cuando hay saldo.
 
-> Versión actual de la app: **0.3.2** · Prototipo educativo. No sustituye a Protección Civil ni a un curso oficial de primeros auxilios.
+> Versión actual de la app: **0.4.0** · Prototipo educativo. No sustituye a Protección Civil ni a un curso oficial de primeros auxilios.
 
 ---
 
@@ -20,6 +20,7 @@
 | **Ayudar en silencio** | Modo repetidor: tu teléfono retransmite SOS sin mostrar datos de nadie. |
 | **Soy rescatista** | Ves SOS recibidos, distancia a la víctima, contactar / hacer sonar el teléfono. |
 | **Buscador** | Mapa y distancia en vivo (Google Maps con API key, o OpenStreetMap sin key). |
+| **Smartwatch (Wear OS)** | SOS, ubicación y signos vitales desde el reloj; el teléfono es el radio de la mesh. |
 | **Guías** | Temblor, inundación y RCP / primeros auxilios con pasos e imágenes. |
 | **Estado visible** | Chips en el inicio: red, Bluetooth, Wi‑Fi Direct, Internet, contactos. |
 | **Notificaciones** | «Activando SOS» o «Ayudando a compartir mensaje», con «Estoy bien» y «Cerrar aplicación». |
@@ -146,6 +147,17 @@ Solo para personal autorizado en un despliegue real.
 
 ---
 
+## Smartwatch (Wear OS)
+
+- Instala **Red de Ayuda** en el teléfono y en un reloj Wear OS emparejado (misma app compañera).
+- En el reloj: botón **SOS** → el teléfono activa mesh + SMS a contactos.
+- El reloj envía su **ubicación** y, si el hardware lo permite, **frecuencia cardíaca** (SpO2 solo si el sensor está disponible).
+- Mientras el SOS del reloj esté activo: reenvío de ubicación/vitales **cada 5 minutos**.
+- **Estoy bien** en el reloj cancela el SOS en el teléfono.
+- Limitación: SpO2 y temperatura no están estándar en todos los Wear OS; se envían cuando el sensor existe.
+
+---
+
 ## Requisitos
 
 - Android **8.0+** (API 26)
@@ -203,7 +215,7 @@ Documentación técnica: [`docs/README.md`](docs/README.md) · Cambios: [`CHANGE
 |------|-----|--------|
 | Arquitectura y protocolo | Docs 1–16 | Hecho |
 | Núcleo JVM + tests + simulador | A→B→C→D | PASS |
-| App Android | SOS, mesh, contactos, GPS, Buscador, guías | MVP 0.3.2 |
+| App Android | SOS, mesh, contactos, GPS, Buscador, Wear OS | MVP 0.4.0 |
 | Prueba de campo 3 teléfonos | BLE real | Pendiente de hardware |
 | iOS / LoRa | Futuro | Spec |
 

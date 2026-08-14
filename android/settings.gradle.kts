@@ -42,4 +42,5 @@ if (androidSdkPresent()) {
     include(":transport-wifi")
     include(":platform")
     include(":app")
+    include(":wear")
 }
