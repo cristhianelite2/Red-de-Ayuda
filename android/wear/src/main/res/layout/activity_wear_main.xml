@@ -45,7 +45,7 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/ic_wear_sos"
+            android:background="@drawable/bg_wear_sos_btn"
             android:clickable="true"
             android:focusable="true">
 

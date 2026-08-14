@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RdaWear" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/wear_bg</item>
+        <item name="colorPrimary">@color/wear_sos</item>
+        <item name="colorAccent">@color/wear_teal</item>
+        <item name="android:statusBarColor">@color/wear_bg</item>
+    </style>
+</resources>

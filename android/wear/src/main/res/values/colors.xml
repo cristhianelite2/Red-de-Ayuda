@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="wear_bg">#0F2A32</color>
+    <color name="wear_sos">#C62828</color>
+    <color name="wear_teal">#80CBC4</color>
+</resources>
