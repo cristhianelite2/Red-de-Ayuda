@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Red de Ayuda</string>
+    <string name="tagline">Tu teléfono puede salvar vidas — incluso en silencio.</string>
+    <string name="sos">SOS</string>
+    <string name="sos_help">Pedir ayuda</string>
+    <string name="sos_confirm_title">¿Activar SOS?</string>
+    <string name="sos_confirm_body">Se enviará tu ubicación por Bluetooth a la red de emergencia. Los teléfonos cercanos retransmitirán el mensaje sin mostrar tus datos.</string>
+    <string name="back">Atrás</string>
+    <string name="cancel">Cancelar</string>
+    <string name="activate">Activar SOS</string>
+    <string name="guides_title">Qué hacer en una emergencia</string>
+    <string name="guide_sismo_title">Temblor</string>
+    <string name="guide_sismo_sub">Agáchate, cúbrete, afírmate</string>
+    <string name="guide_flood_title">Inundación</string>
+    <string name="guide_flood_sub">Sube a un lugar alto. No cruces el agua.</string>
+    <string name="guide_rcp_title">RCP y primeros auxilios</string>
+    <string name="guide_rcp_sub">Elige el problema y sigue el paso a paso</string>
+    <string name="repeater_title">Ayudar en silencio</string>
+    <string name="repeater_sub">Tu teléfono retransmite SOS sin mostrar nada</string>
+    <string name="rescue_title">Soy rescatista</string>
+    <string name="rescue_sub">Ver SOS recibidos y contactar</string>
+    <string name="mesh_off">Red inactiva</string>
+    <string name="mesh_on">Red activa</string>
+    <string name="bt_title">Bluetooth para la red de ayuda</string>
+    <string name="bt_body">Es importante tener el Bluetooth activado: así tu teléfono puede retransmitir mensajes y ayudar a los rescatistas, aunque no uses el SOS.</string>
+    <string name="bt_enable">Activar Bluetooth</string>
+    <string name="bt_on">Bluetooth activo</string>
+    <string name="bt_off_chip">Bluetooth apagado</string>
+    <string name="bt_needed_sos">Para pedir ayuda necesitamos encender el Bluetooth</string>
+    <string name="bt_denied">Sin Bluetooth la red de emergencia no puede funcionar</string>
+    <string name="im_here">Estoy aquí</string>
+    <string name="im_ok">Estoy bien</string>
+    <string name="contact">Contactar</string>
+    <string name="sound">Hacer sonar</string>
+    <string name="battery">Ahorro de batería</string>
+    <string name="disclaimer">Guía educativa. No sustituye capacitación oficial ni instrucciones de Protección Civil.</string>
+
+    <string name="sos_asking">Estamos pidiendo ayuda</string>
+    <string name="sos_comfort_title">Respira. No necesitas internet ni saldo.</string>
+    <string name="sos_comfort_body">Tu mensaje sale por Bluetooth y salta de teléfono en teléfono. Los vecinos no ven quién eres ni dónde estás: solo transportan el aviso hasta un rescatista. Mantén el teléfono encendido.</string>
+    <string name="sos_notif_title">Activando SOS</string>
+    <string name="sos_notif_text">No hace falta internet ni saldo. El mensaje viaja de teléfono en teléfono.</string>
+    <string name="mesh_notif_title">Ayudando a compartir mensaje</string>
+    <string name="mesh_notif_text">Con la app activa estás ayudando a salvar vidas: tu teléfono puede retransmitir emergencias en silencio.</string>
+    <string name="bt_launch_title">Activa Bluetooth para ayudar</string>
+    <string name="bt_launch_body">Con Bluetooth encendido, tu teléfono puede retransmitir emergencias en silencio y ayudar a salvar vidas. No hace falta internet ni saldo.</string>
+    <string name="bt_later">Ahora no</string>
+    <string name="footer_made_by">Hecho por Cristhian Ceballos</string>
+    <string name="footer_site">Ceballosleon.com</string>
+    <string name="footer_url">https://ceballosleon.com</string>
+    <string name="close_app">Cerrar aplicación</string>
+
+    <string name="onboard_1_title">Instálala y ya estás ayudando</string>
+    <string name="onboard_1_body">No tienes que ser rescatista. Con solo tener la app, tu teléfono puede convertirse en un puente silencioso si alguien cercano pide ayuda.</string>
+    <string name="onboard_2_title">Sin internet. Sin saldo. Sin antenas.</string>
+    <string name="onboard_2_body">Cuando cae la red celular, los teléfonos se hablan por Bluetooth. El aviso salta de uno a otro hasta llegar a quien puede ayudar.</string>
+    <string name="onboard_3_title">Si tú necesitas ayuda, pulsa SOS</string>
+    <string name="onboard_3_body">Los demás no ven tus datos. Solo pasan un mensaje cerrado. Tú no estás solo: la red se arma con los teléfonos que ya tienen la app.</string>
+    <string name="onboard_next">Siguiente</string>
+    <string name="onboard_start">Empezar</string>
+    <string name="onboard_step">%1$d de 3</string>
+    <string name="sos_banner_title">Estás pidiendo ayuda — puedes seguir usando la app</string>
+
+    <string name="fa_menu_prompt">¿Qué está pasando? Elige una opción</string>
+    <string name="fa_menu_section">¿Qué hacer?</string>
+    <string name="fa_menu_hint">Selecciona el problema. Verás solo los pasos e imágenes de ese caso.</string>
+    <string name="fa_steps_heading">Paso a paso</string>
+    <string name="fa_step_n">Paso %1$d de %2$d</string>
+
+    <string name="fa_scene_title">Antes de ayudar</string>
+    <string name="fa_scene_sub">Escena segura y pedir ayuda</string>
+    <string name="fa_scene_intro">No te acerques si hay peligro para ti. Un segundo herido no ayuda. Primero mira alrededor y pide apoyo.</string>
+    <string name="fa_scene_s1_t">Revisa si la escena es segura</string>
+    <string name="fa_scene_s1_b">Mira tráfico, cables caídos, fuego, gas o estructuras inestables. Si no es seguro, aléjate y pide ayuda sin tocar a la persona.</string>
+    <string name="fa_scene_s2_t">Pide ayuda en voz alta</string>
+    <string name="fa_scene_s2_b">Grita “¡Necesito ayuda!” Señala a alguien concreto: “Tú, llama al 911”. Si hay DEA en el lugar, pide que lo traigan.</string>
+    <string name="fa_scene_s3_t">Solo entonces evalúa a la persona</string>
+    <string name="fa_scene_s3_b">Cuando la zona sea segura, toca los hombros y pregunta “¿Me escuchas?”. Mira si respira con normalidad.</string>
+
+    <string name="fa_cpr_title">No responde y no respira</string>
+    <string name="fa_cpr_sub">RCP: compresiones y pedir DEA</string>
+    <string name="fa_cpr_intro">Si la persona no responde y no respira con normalidad, inicia RCP. Si no tienes curso, haz solo compresiones con las manos y pide un DEA. Guía educativa: no sustituye un curso oficial.</string>
+    <string name="fa_cpr_s1_t">Confirma que puedes acercarte</string>
+    <string name="fa_cpr_s1_b">Sin peligro a tu alrededor. Si hay tráfico o cables, no te expongas.</string>
+    <string name="fa_cpr_s2_t">Comprueba respuesta y respiración</string>
+    <string name="fa_cpr_s2_b">Toca los hombros y grita. Mira el pecho 5–10 segundos. Si no responde y no respira normal, actúa ya.</string>
+    <string name="fa_cpr_s3_t">911 y DEA</string>
+    <string name="fa_cpr_s3_b">Alguien debe llamar al 911 y traer un DEA. Tú quédate con la persona.</string>
+    <string name="fa_cpr_s4_t">Compresiones al centro del pecho</string>
+    <string name="fa_cpr_s4_b">Rodillas al lado. Talón de una mano al centro del pecho, la otra encima. Brazos rectos. 5–6 cm de profundidad. Ritmo 100–120 por minuto. No pares.</string>
+    <string name="fa_cpr_s5_t">Si sabes: 30 y 2</string>
+    <string name="fa_cpr_s5_b">30 compresiones y 2 ventilaciones. Si no estás capacitado o no quieres dar respiración boca a boca, continúa solo con las manos.</string>
+    <string name="fa_cpr_s6_t">Cuando llegue el DEA</string>
+    <string name="fa_cpr_s6_b">Enciéndelo y sigue la voz. Coloca los parches. Nadie toca a la persona durante el análisis ni la descarga. Luego sigue las instrucciones.</string>
+
+    <string name="fa_aed_title">Usar un DEA</string>
+    <string name="fa_aed_sub">Desfibrilador automático externo</string>
+    <string name="fa_aed_intro">El DEA habla y te guía. Úsalo si la persona no responde y no respira. Está pensado para personas sin formación médica.</string>
+    <string name="fa_aed_s1_t">Pide el DEA y llama al 911</string>
+    <string name="fa_aed_s1_b">Mientras alguien trae el aparato, otro llama al 911. No dejes sola a la persona si puedes evitarlo.</string>
+    <string name="fa_aed_s2_t">Enciende y coloca los parches</string>
+    <string name="fa_aed_s2_b">Abre el pecho. Un parche arriba a la derecha del pecho; el otro abajo a la izquierda, bajo la axila. Sigue el dibujo de los parches.</string>
+    <string name="fa_aed_s3_t">Aléjate cuando lo diga</string>
+    <string name="fa_aed_s3_b">Cuando diga “no tocar” o “descarga”, nadie debe tocar a la persona. Tú pulsas el botón de descarga solo si el aparato te lo indica.</string>
+    <string name="fa_aed_s4_t">Sigue con RCP si te lo pide</string>
+    <string name="fa_aed_s4_b">Después de la descarga (o si no hay descarga), reanuda compresiones hasta que llegue ayuda o la persona respire.</string>
+
+    <string name="fa_choke_title">Se atraganta</string>
+    <string name="fa_choke_sub">No puede hablar, toser ni respirar</string>
+    <string name="fa_choke_intro">Si la persona se lleva las manos al cuello, no puede hablar ni toser con fuerza, actúa. Si tose fuerte, anímala a seguir tosiendo: no golpees todavía.</string>
+    <string name="fa_choke_s1_t">Reconoce el atragantamiento</string>
+    <string name="fa_choke_s1_b">Señal universal: manos al cuello. No puede hablar, apenas emite sonido, la cara puede ponerse azulada. Pregunta: “¿Te atragantas?”</string>
+    <string name="fa_choke_s2_t">Golpes entre los omóplatos</string>
+    <string name="fa_choke_s2_b">Inclínala hacia adelante. Con el talón de la mano da hasta 5 golpes firmes entre los omóplatos. Revisa si salió el objeto.</string>
+    <string name="fa_choke_s3_t">Compresiones abdominales (Heimlich)</string>
+    <string name="fa_choke_s3_b">Ponte detrás. Puño encima del ombligo, debajo del pecho. Otra mano encima. Tira hacia dentro y arriba, hasta 5 veces. Alterna golpes y Heimlich.</string>
+    <string name="fa_choke_s4_t">Si no mejora: 911</string>
+    <string name="fa_choke_s4_b">Pide que llamen al 911 sin dejar de ayudar. Si expulsó el objeto, que se revise igual si le duele o le cuesta respirar.</string>
+    <string name="fa_choke_s5_t">Si pierde el conocimiento</string>
+    <string name="fa_choke_s5_b">Bájala con cuidado al suelo e inicia RCP (compresiones). Cada vez que abras la vía aérea, mira si ves el objeto y retíralo solo si es visible.</string>
+
+    <string name="fa_bleed_title">Sangrado fuerte</string>
+    <string name="fa_bleed_sub">Hemorragia: presión y vendaje</string>
+    <string name="fa_bleed_intro">La prioridad es detener la sangre visible. Usa tela limpia. No quites el primer vendaje aunque se empape: pon otro encima.</string>
+    <string name="fa_bleed_s1_t">Protégente y mira la escena</string>
+    <string name="fa_bleed_s1_b">Si puedes, usa guantes o una bolsa. Aleja a la persona de peligro inmediato (tráfico, cristales).</string>
+    <string name="fa_bleed_s2_t">Presión firme sobre la herida</string>
+    <string name="fa_bleed_s2_b">Coloca tela limpia y presiona con fuerza constante. Eleva la extremidad si no hay fractura evidente y no duele más al hacerlo.</string>
+    <string name="fa_bleed_s3_t">Vendaje sin quitar lo primero</string>
+    <string name="fa_bleed_s3_b">Si se empapa, no lo quites: agrega más tela y sigue presionando. Quitar el primer vendaje puede reiniciar el sangrado.</string>
+    <string name="fa_bleed_s4_t">Pide ayuda médica</string>
+    <string name="fa_bleed_s4_b">Llama al 911 si el sangrado no para, es muy abundante, hay palidez, mareo o la herida es profunda. Mantén a la persona acostada y abrigada.</string>
+
+    <string name="fa_recovery_title">Inconsciente pero respira</string>
+    <string name="fa_recovery_sub">Posición lateral de seguridad</string>
+    <string name="fa_recovery_intro">Si no responde pero respira con normalidad y no sospechas lesión de cuello, colócala de lado para que la vía aérea quede libre.</string>
+    <string name="fa_recovery_s1_t">Confirma que respira</string>
+    <string name="fa_recovery_s1_b">Mira el pecho. Si respira normal y hay pulso de vida (movimiento, color), no inicies RCP. Si deja de respirar, cambia a RCP.</string>
+    <string name="fa_recovery_s2_t">Posición de lado</string>
+    <string name="fa_recovery_s2_b">Brazo cercano extendido. Pierna lejana flexionada. Gira el cuerpo hacia ti. Inclina un poco la cabeza hacia atrás para abrir la vía aérea. Boca hacia abajo.</string>
+    <string name="fa_recovery_s3_t">Vigila y llama al 911</string>
+    <string name="fa_recovery_s3_b">No la dejes sola. Controla la respiración cada minuto. Si vomita, limpia la boca manteniendo la posición de lado.</string>
+    <string name="fa_recovery_s4_t">Si deja de respirar</string>
+    <string name="fa_recovery_s4_b">Vuélvela boca arriba e inicia compresiones de inmediato. Pide DEA.</string>
+
+    <string name="fa_neck_title">Sospecha de lesión en cuello</string>
+    <string name="fa_neck_sub">Caída, golpe o accidente</string>
+    <string name="fa_neck_intro">Si hubo caída de altura, accidente de auto o golpe fuerte en cabeza/espalda, no muevas el cuello salvo peligro inmediato (fuego, ahogo).</string>
+    <string name="fa_neck_s1_t">No la arrastres si puedes evitarlo</string>
+    <string name="fa_neck_s1_b">Solo muévela si el lugar es mortal (incendio, agua que sube, tráfico). Si debes moverla, arrástrala en bloque, manteniendo cabeza-cuello-tronco alineados.</string>
+    <string name="fa_neck_s2_t">Inmoviliza la cabeza</string>
+    <string name="fa_neck_s2_b">Arrodíllate a la cabeza. Sujeta ambos lados de la cabeza con las manos sin tirar ni girar. Puedes apoyar ropa a ambos lados para que no se mueva.</string>
+    <string name="fa_neck_s3_t">Llama al 911</string>
+    <string name="fa_neck_s3_b">Di que hay posible lesión cervical. No quites el casco si lo lleva, salvo que no respire y sepas cómo hacerlo.</string>
+    <string name="fa_neck_s4_t">Controla respiración sin mover el cuello</string>
+    <string name="fa_neck_s4_b">Mira el pecho. Si no respira, inicia RCP con la menor movilización posible. Pide DEA y ayuda profesional.</string>
+
+    <string name="sismo_body">PERMANECE EN CALMA\nRespira. El pánico mata más que el movimiento. No corras hacia la calle durante el sacudimiento.\n\nDURANTE EL SISMO\n1. Agáchate, cúbrete y afírmate bajo una mesa o junto a un muro interior.\n2. Cubre cabeza y cuello con los brazos.\n3. Aléjate de ventanas, libreros y objetos que puedan caer.\n4. No uses elevadores.\n5. Si estás en la calle, aléjate de fachadas, postes y cables.\n6. Si estás en un auto, detente lejos de puentes y anúnciate con las luces.\n\nSI SUENA LA ALERTA SÍSMICA\nTienes segundos. Métete en tu lugar seguro ahora. La alerta oficial en México es SASMEX (altavoces, radio, TV). Esta app no reemplaza esa alerta.\n\nDESPUÉS\n• Espera réplicas. No regreses corriendo.\n• Cierra gas si huele a fuga. No enciendas cerillos.\n• Usa el celular lo mínimo: ahorra batería.\n• Si no puedes salir, activa SOS en esta app. Los teléfonos cercanos pueden llevar tu mensaje sin que nadie vea tus datos.\n• No entres a edificios dañados. Eso es trabajo de rescatistas.</string>
+
+    <string name="flood_body">SAL A UN LUGAR ALTO\nEl agua se mueve más rápido de lo que parece. 20 cm ya pueden derribar a una persona.\n\nQUÉ HACER\n1. Sube a un segundo piso, techo seguro o loma. No bajes a sótanos.\n2. No cruces calles inundadas a pie ni en auto. “Si no ves el piso, no pases”.\n3. Desconecta la electricidad solo si puedes hacerlo con los pies secos y sin agua en los contactos.\n4. Lleva documentos, agua, medicamentos y un silbato si tienes tiempo.\n5. Evita el agua sucia: puede tener drenaje, cables y escombros.\n6. No te amargues en el cauce ni bajo puentes.\n\nDESPUÉS\n• No regreses hasta que autoridades lo indiquen.\n• Tira alimentos que tocaron el agua.\n• Si quedaste aislado, activa SOS. No intentes nadar de noche.</string>
+</resources>

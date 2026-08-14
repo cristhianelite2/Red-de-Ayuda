@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RedDeAyuda" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/navy</item>
+        <item name="colorPrimaryVariant">@color/navy_deep</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal</item>
+        <item name="colorAccent">@color/teal</item>
+        <item name="android:statusBarColor">@color/navy_deep</item>
+        <item name="android:navigationBarColor">@color/paper</item>
+        <item name="android:windowBackground">@color/paper</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/ink</item>
+    </style>
+
+    <style name="Theme.RedDeAyuda.Sos" parent="Theme.RedDeAyuda">
+        <item name="android:statusBarColor">@color/sos_dark</item>
+        <item name="android:navigationBarColor">@color/sos_dark</item>
+        <item name="android:windowBackground">@color/sos_dark</item>
+    </style>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="paper">#F3EEE4</color>
+    <color name="paper_dark">#E7DFD1</color>
+    <color name="ink">#1A2428</color>
+    <color name="ink_soft">#5C6A70</color>
+    <color name="navy">#163A44</color>
+    <color name="navy_deep">#0F2A32</color>
+    <color name="teal">#2A7A78</color>
+    <color name="sos">#C62828</color>
+    <color name="sos_dark">#8E1515</color>
+    <color name="white">#FFFFFF</color>
+    <color name="chip_ok">#1B7A4A</color>
+    <color name="chip_warn">#B36B00</color>
+    <color name="chip_sos">#C62828</color>
+</resources>

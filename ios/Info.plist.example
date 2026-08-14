@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>es</string>
+    <key>CFBundleDisplayName</key>
+    <string>Red de Ayuda</string>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>Red de Ayuda usa Bluetooth para transmitir mensajes de emergencia sin Internet.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>La ubicación se incluye en el paquete SOS para que los rescatistas sepan dónde buscarte.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>bluetooth-central</string>
+        <string>bluetooth-peripheral</string>
+    </array>
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>Este teléfono puede anunciar un nodo de emergencia a otros dispositivos cercanos.</string>
+</dict>
+</plist>
