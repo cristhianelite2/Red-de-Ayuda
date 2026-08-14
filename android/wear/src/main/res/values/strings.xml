@@ -4,13 +4,15 @@
     <string name="sos">SOS</string>
     <string name="sos_help">Pedir ayuda</string>
     <string name="im_ok">Estoy bien</string>
-    <string name="status_idle">Pulsa SOS. El teléfono envía la alerta por la red.</string>
-    <string name="status_active">SOS activo — enviando ubicación y vitales</string>
+    <string name="status_idle">Pulsa SOS</string>
+    <string name="status_active">SOS activo</string>
+    <string name="status_hint">El teléfono envía la alerta</string>
     <string name="status_sent">Enviado al teléfono</string>
-    <string name="status_no_phone">Sin teléfono cerca. Abre Red de Ayuda en el móvil.</string>
+    <string name="status_no_phone">Abre la app en el móvil</string>
     <string name="vitals_line">FC %1$d · SpO2 %2$d%%</string>
-    <string name="vitals_na">Sin sensor de pulso</string>
+    <string name="vitals_hr_only">FC %1$d lpm</string>
+    <string name="vitals_na">Sin pulso</string>
     <string name="notif_title">SOS desde el reloj</string>
-    <string name="notif_text">Ubicación y signos vitales cada 5 min</string>
-    <string name="need_perms">Concede ubicación y sensores corporales</string>
+    <string name="notif_text">Ubicación y vitales cada 5 min</string>
+    <string name="need_perms">Concede ubicación y sensores</string>
 </resources>

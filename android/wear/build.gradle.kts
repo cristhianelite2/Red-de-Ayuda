@@ -11,8 +11,8 @@ android {
         applicationId = "mx.reddeayuda.app"
         minSdk = 30
         targetSdk = 35
-        versionCode = 6
-        versionName = "0.4.0"
+        versionCode = 7
+        versionName = "0.4.1"
     }
     buildTypes {
         release {
@@ -28,6 +28,8 @@ android {
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
     implementation("androidx.wear:wear:1.3.0")
     implementation("com.google.android.gms:play-services-wearable:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")

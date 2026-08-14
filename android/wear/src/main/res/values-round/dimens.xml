@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dial redondo: más aire en bordes y SOS un poco más chico. -->
+<resources>
+    <dimen name="wear_pad_h">10dp</dimen>
+    <dimen name="wear_pad_v">6dp</dimen>
+    <dimen name="wear_gap">4dp</dimen>
+    <dimen name="wear_title">11sp</dimen>
+    <dimen name="wear_status">9sp</dimen>
+    <dimen name="wear_sos_default">72dp</dimen>
+    <dimen name="wear_sos_min">52dp</dimen>
+    <dimen name="wear_sos_max">100dp</dimen>
+    <dimen name="wear_btn_ok_h">28dp</dimen>
+</resources>

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.1] — 2026-08-14
+
+### Corregido
+- UI Wear OS adaptable a dial **redondo**, **cuadrado** y **chin**: `BoxInsetLayout`, SOS escalado al área útil y scroll si hace falta.
+- En SOS activo el título se oculta y el botón se reduce para que «Estoy bien» y vitales no se corten en el borde circular.
+
 ## [0.4.0] — 2026-08-14
 
 ### Añadido

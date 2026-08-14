@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="wear_pad_h">8dp</dimen>
+    <dimen name="wear_pad_v">4dp</dimen>
+    <dimen name="wear_gap">6dp</dimen>
+    <dimen name="wear_title">12sp</dimen>
+    <dimen name="wear_status">10sp</dimen>
+    <dimen name="wear_vitals">9sp</dimen>
+    <dimen name="wear_sos_text">18sp</dimen>
+    <dimen name="wear_sos_default">80dp</dimen>
+    <dimen name="wear_sos_min">56dp</dimen>
+    <dimen name="wear_sos_max">120dp</dimen>
+    <dimen name="wear_btn_ok_h">28dp</dimen>
+</resources>
