@@ -1,5 +1,41 @@
 # Changelog
 
+## [0.3.2] — 2026-08-14
+
+### Eliminado
+- Integración / menciones de WhatsApp (avisos de emergencia solo por SMS + mesh).
+
+## [0.3.1] — 2026-08-14
+
+### Cambiado
+- Flujo de avisos a contactos centrado en SMS.
+
+### Corregido
+- (histórico) Detección de apps externas en Android 11+.
+
+## [0.3.0] — 2026-08-14
+
+### Añadido
+- GPS en vivo durante SOS: updates periódicos y `LOCATION_UPDATE` en la mesh (~30 s / al moverse).
+- Buscador para rescatistas: distancia en vivo + mapa (Google Maps si hay API key; si no, OpenStreetMap).
+- Onboarding ampliado: permisos claros + agregar 2–3 contactos de confianza.
+- Chips de estado en el inicio: Bluetooth, Wi‑Fi Direct, Internet, contactos.
+- La clave de Maps se lee de `android/local.properties` (`MAPS_API_KEY`), fuera de Git.
+
+### Cambiado
+- Los rescatistas fusionan SOS + actualizaciones de ubicación por dispositivo de origen.
+
+## [0.2.0] — 2026-08-14
+
+### Añadido
+- Red de contactos (máx. 5) desde la agenda con permisos de contactos y SMS.
+- Al activar SOS: SMS automático con ubicación cada 5 minutos.
+- Wi‑Fi Direct junto a BLE (origen SOS y retransmisores) cuando el teléfono lo soporta.
+- Tarjeta «Red de contactos» en la pantalla principal.
+
+### Cambiado
+- Confirmación de SOS menciona SMS y Wi‑Fi Direct.
+
 ## [0.1.0] — 2026-08-14
 
 ### Añadido

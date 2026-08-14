@@ -123,6 +123,28 @@ class EmergencyEngine(
         return packet
     }
 
+    /**
+     * Actualización periódica de ubicación mientras el SOS sigue activo.
+     * Se propaga por la mesh; los rescatistas la fusionan con el SOS del mismo origen.
+     */
+    fun createLocationUpdate(fix: GeoFix, battery: Int): EmergencyPacket? {
+        val state = stateMachine.state
+        if (state != DeviceState.SOS && state != DeviceState.RESCUE_CONTACT) return null
+        if (fix.isUnknown) return null
+        val packet = newPacket(
+            type = PacketType.LOCATION_UPDATE,
+            ttl = ProtocolConstants.DEFAULT_TTL,
+            eventType = EventType.USER_INITIATED,
+            status = OriginStatus.NEED_HELP,
+            battery = battery.coerceIn(0, 100),
+            fix = fix,
+            payload = ByteArray(0)
+        )
+        acceptLocal(packet)
+        listener.onLog("LOCATION_UPDATE ${packet.shortId()}")
+        return packet
+    }
+
     fun createAck(kind: AckKind, ref: EmergencyPacket, battery: Int = ProtocolConstants.UNKNOWN_BATTERY): EmergencyPacket {
         val packet = newPacket(
             type = PacketType.ACK,
@@ -206,9 +228,46 @@ class EmergencyEngine(
         repository.getAll()
             .map { it.packet }
             .filter {
-                it.type == PacketType.SOS && it.originDeviceId.contentEquals(localDeviceId)
+                it.originDeviceId.contentEquals(localDeviceId) &&
+                    (it.type == PacketType.SOS || it.type == PacketType.LOCATION_UPDATE)
             }
             .forEach { repository.delete(it.messageId) }
+        visibleSos.keys
+            .filter { visibleSos[it]?.originDeviceId?.contentEquals(localDeviceId) == true }
+            .toList()
+            .forEach { visibleSos.remove(it) }
+    }
+
+    fun findVisibleByOrigin(originHex: String): EmergencyPacket? =
+        visibleSos[originHex] ?: visibleSos.values.find { it.originHex() == originHex }
+
+    private fun upsertVisible(packet: EmergencyPacket) {
+        if (packet.type != PacketType.SOS && packet.type != PacketType.LOCATION_UPDATE) return
+        val key = packet.originHex()
+        val existing = visibleSos[key]
+        visibleSos[key] = when {
+            existing == null -> packet
+            packet.type == PacketType.LOCATION_UPDATE -> existing.copy(
+                latitudeMicrodegrees = packet.latitudeMicrodegrees,
+                longitudeMicrodegrees = packet.longitudeMicrodegrees,
+                accuracyMeters = packet.accuracyMeters,
+                battery = packet.battery,
+                timestamp = packet.timestamp,
+                hopCount = packet.hopCount
+            )
+            else -> packet.copy(
+                // Conservar coords más frescas si el SOS nuevo viene sin fix
+                latitudeMicrodegrees = if (packet.accuracyMeters == ProtocolConstants.UNKNOWN_ACCURACY &&
+                    existing.accuracyMeters != ProtocolConstants.UNKNOWN_ACCURACY
+                ) existing.latitudeMicrodegrees else packet.latitudeMicrodegrees,
+                longitudeMicrodegrees = if (packet.accuracyMeters == ProtocolConstants.UNKNOWN_ACCURACY &&
+                    existing.accuracyMeters != ProtocolConstants.UNKNOWN_ACCURACY
+                ) existing.longitudeMicrodegrees else packet.longitudeMicrodegrees,
+                accuracyMeters = if (packet.accuracyMeters == ProtocolConstants.UNKNOWN_ACCURACY &&
+                    existing.accuracyMeters != ProtocolConstants.UNKNOWN_ACCURACY
+                ) existing.accuracyMeters else packet.accuracyMeters
+            )
+        }
     }
 
     fun startSafetyCheck() {
@@ -261,7 +320,7 @@ class EmergencyEngine(
             }
             PacketType.SOS, PacketType.LOCATION_UPDATE -> {
                 if (stateMachine.role == DeviceRole.RESCUER) {
-                    visibleSos[packet.messageIdHex()] = packet
+                    upsertVisible(packet)
                     listener.onSosForRescuer(packet)
                     if (packet.type == PacketType.SOS) {
                         createAck(AckKind.MESSAGE_DELIVERED, packet)

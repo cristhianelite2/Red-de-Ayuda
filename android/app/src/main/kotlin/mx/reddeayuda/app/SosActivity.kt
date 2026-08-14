@@ -18,11 +18,13 @@ class SosActivity : AppCompatActivity() {
             app.engine.createResponse(
                 OriginStatus.IM_HERE,
                 "ESTOY AQUI".toByteArray(Charsets.UTF_8),
-                app.gnss.lastKnown(),
+                app.gnss.latest(),
                 app.battery()
             )
         }
         findViewById<com.google.android.material.button.MaterialButton>(R.id.btnImOk).setOnClickListener {
+            ContactAlerter.stopSosAlerts()
+            SosLocationTracker.stop()
             RdaApp.instance.engine.imOk()
             RdaApp.instance.startMesh(sos = false)
             finish()
@@ -43,7 +45,7 @@ class SosActivity : AppCompatActivity() {
             null -> "Buscando nodos cercanos por Bluetooth…"
         }
         findViewById<TextView>(R.id.txtAck).text = ack
-        val fix = app.gnss.lastKnown()
+        val fix = app.gnss.latest()
         findViewById<TextView>(R.id.txtMeta).text = if (fix.isUnknown) {
             "Batería ${app.battery()}%  ·  ubicación no disponible"
         } else {

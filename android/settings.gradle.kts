@@ -39,6 +39,7 @@ fun androidSdkPresent(): Boolean {
 if (androidSdkPresent()) {
     include(":data")
     include(":transport-ble")
+    include(":transport-wifi")
     include(":platform")
     include(":app")
 }

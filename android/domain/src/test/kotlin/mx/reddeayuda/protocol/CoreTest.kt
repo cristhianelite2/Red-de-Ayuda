@@ -188,6 +188,23 @@ class EngineAckStoreForwardTest {
     }
 
     @Test
+    fun locationUpdateMergesByOriginForRescuer() {
+        val victim = engine(1)
+        val rescue = engine(9, DeviceRole.RESCUER)
+        val sos = victim.createEmergency(GeoFix(19_000_000, -99_000_000, 20), 80)
+        rescue.receive(sos.copy(ttl = 19, hopCount = 1))
+        assertEquals(1, rescue.visibleSosPackets().size)
+
+        val upd = victim.createLocationUpdate(GeoFix(19_001_000, -99_001_000, 12), 75)!!
+        rescue.receive(upd.copy(ttl = 19, hopCount = 1))
+        val visible = rescue.visibleSosPackets()
+        assertEquals(1, visible.size)
+        assertEquals(19_001_000, visible.first().latitudeMicrodegrees)
+        assertEquals(75, visible.first().battery)
+        assertEquals(PacketType.SOS, visible.first().type)
+    }
+
+    @Test
     fun batteryIntervals() {
         assertEquals(5L * 60_000, BatteryPolicy.originRetryMs(80))
         assertEquals(10L * 60_000, BatteryPolicy.originRetryMs(30))

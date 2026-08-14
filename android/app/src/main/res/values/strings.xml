@@ -5,7 +5,7 @@
     <string name="sos">SOS</string>
     <string name="sos_help">Pedir ayuda</string>
     <string name="sos_confirm_title">¿Activar SOS?</string>
-    <string name="sos_confirm_body">Se enviará tu ubicación por Bluetooth a la red de emergencia. Los teléfonos cercanos retransmitirán el mensaje sin mostrar tus datos.</string>
+    <string name="sos_confirm_body">Se enviará tu ubicación por Bluetooth (y Wi‑Fi Direct si aplica). Si tienes contactos de emergencia, también se enviará SMS con tu ubicación cada 5 minutos (usa saldo).</string>
     <string name="back">Atrás</string>
     <string name="cancel">Cancelar</string>
     <string name="activate">Activar SOS</string>
@@ -51,6 +51,52 @@
     <string name="footer_url">https://ceballosleon.com</string>
     <string name="close_app">Cerrar aplicación</string>
 
+    <string name="contacts_title">Red de contactos</string>
+    <string name="contacts_hint">Hasta 5 teléfonos de tu agenda. Al activar SOS se les enviará SMS con tu ubicación cada 5 minutos (usa saldo).</string>
+    <string name="contacts_add">Agregar de la agenda</string>
+    <string name="contacts_remove">Quitar</string>
+    <string name="contacts_empty">Aún no hay contactos. Agrégalos para que reciban tu ubicación en un SOS.</string>
+    <string name="contacts_count">%1$d de %2$d contactos</string>
+    <string name="contacts_max">Máximo 5 contactos</string>
+    <string name="contacts_permission">Necesitamos permiso de contactos y SMS para avisar a tu red</string>
+    <string name="contacts_added">Agregado: %1$s</string>
+    <string name="contacts_add_fail">No se pudo agregar (duplicado, número inválido o límite alcanzado)</string>
+    <string name="contacts_card_title">Red de contactos</string>
+    <string name="contacts_card_sub">SMS con tu ubicación en SOS (máx. 5)</string>
+    <string name="contacts_card_empty">Sin contactos — tócalo para configurar</string>
+    <string name="wifi_direct_on">Wi‑Fi Direct activo</string>
+    <string name="wifi_direct_off">Wi‑Fi Direct no disponible</string>
+
+    <string name="onboard_step">%1$d de %2$d</string>
+    <string name="onboard_4_title">Permisos que salvamos vidas</string>
+    <string name="onboard_4_body">Necesitamos ubicación (para el SOS y la mesh), contactos y SMS (para avisar a tu red de confianza). Bluetooth y notificaciones para retransmitir emergencias. Nada se publica en internet.</string>
+    <string name="onboard_4_allow">Permitir permisos</string>
+    <string name="onboard_5_title">Agrega 2–3 contactos de confianza</string>
+    <string name="onboard_5_body">Si activas SOS y hay saldo o datos, les llegará tu ubicación por SMS cada 5 minutos. Máximo 5. Puedes completar esto después.</string>
+    <string name="onboard_5_add">Agregar de la agenda</string>
+    <string name="onboard_5_skip">Continuar</string>
+    <string name="onboard_5_count">Llevas %1$d contacto(s). Ideal: al menos 2.</string>
+
+    <string name="finder_title">Buscador</string>
+    <string name="finder_victim">Víctima SOS %1$s</string>
+    <string name="finder_missing">No hay víctima seleccionada</string>
+    <string name="finder_no_location">La víctima aún no tiene ubicación</string>
+    <string name="finder_open_maps">Abrir en Google Maps</string>
+    <string name="finder_map_hint">Distancia en vivo entre tú y la víctima. Solo modo rescatista.</string>
+    <string name="finder_osm_hint">Mapa OpenStreetMap (sin API key). Para Google Maps nativo, pon MAPS_API_KEY en local.properties.</string>
+    <string name="finder_marker_victim">Víctima</string>
+    <string name="finder_marker_me">Tú</string>
+    <string name="finder_open">Buscar en mapa</string>
+
+    <string name="chip_bt_on">Bluetooth</string>
+    <string name="chip_bt_off">Bluetooth off</string>
+    <string name="chip_wifi_on">Wi‑Fi Direct</string>
+    <string name="chip_wifi_off">Wi‑Fi Direct off</string>
+    <string name="chip_net_on">Internet</string>
+    <string name="chip_net_off">Sin internet</string>
+    <string name="chip_contacts">Contactos %1$d/%2$d</string>
+    <string name="chip_contacts_none">Sin contactos</string>
+
     <string name="onboard_1_title">Instálala y ya estás ayudando</string>
     <string name="onboard_1_body">No tienes que ser rescatista. Con solo tener la app, tu teléfono puede convertirse en un puente silencioso si alguien cercano pide ayuda.</string>
     <string name="onboard_2_title">Sin internet. Sin saldo. Sin antenas.</string>
@@ -59,8 +105,8 @@
     <string name="onboard_3_body">Los demás no ven tus datos. Solo pasan un mensaje cerrado. Tú no estás solo: la red se arma con los teléfonos que ya tienen la app.</string>
     <string name="onboard_next">Siguiente</string>
     <string name="onboard_start">Empezar</string>
-    <string name="onboard_step">%1$d de 3</string>
     <string name="sos_banner_title">Estás pidiendo ayuda — puedes seguir usando la app</string>
+    <string name="sms_sent_toast">SMS enviado a %1$d de %2$d contactos</string>
 
     <string name="fa_menu_prompt">¿Qué está pasando? Elige una opción</string>
     <string name="fa_menu_section">¿Qué hacer?</string>

@@ -1,1 +1,10 @@
-# sdk.dir=C:\\Users\\TU_USUARIO\\AppData\\Local\\Android\\Sdk
+# Copia este archivo a local.properties (ya está en .gitignore — no se sube a Git).
+# sdk.dir lo genera Android Studio; tú solo agregas la clave de Maps:
+
+sdk.dir=C:\\Users\\TU_USUARIO\\AppData\\Local\\Android\\Sdk
+
+# Clave de Google Maps SDK for Android (Cloud Console → Credenciales).
+# Restrínela a: paquete mx.reddeayuda.app + SHA-1 de tu keystore de debug/release.
+# Nunca la pongas en el código fuente ni en el repositorio.
+MAPS_API_KEY=
+

@@ -12,6 +12,7 @@ import mx.reddeayuda.core.MessageCache
 import mx.reddeayuda.core.SystemClock
 import mx.reddeayuda.data.SqlitePacketRepository
 import mx.reddeayuda.platform.BatteryReader
+import mx.reddeayuda.platform.ConnectivityHelper
 import mx.reddeayuda.platform.DeviceIdentity
 import mx.reddeayuda.platform.GnssProvider
 import mx.reddeayuda.platform.RescueSound
@@ -19,7 +20,9 @@ import mx.reddeayuda.protocol.AckKind
 import mx.reddeayuda.protocol.DeviceRole
 import mx.reddeayuda.protocol.EmergencyPacket
 import mx.reddeayuda.protocol.EmergencyPacketCodec
+import mx.reddeayuda.protocol.ProtocolConstants
 import mx.reddeayuda.protocol.RescueAction
+import mx.reddeayuda.wifi.WifiDirectMeshManager
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.util.concurrent.CopyOnWriteArrayList
@@ -29,9 +32,15 @@ class RdaApp : Application() {
         private set
     lateinit var ble: BleMeshManager
         private set
+    lateinit var wifi: WifiDirectMeshManager
+        private set
     lateinit var gnss: GnssProvider
         private set
     lateinit var sound: RescueSound
+        private set
+
+    @Volatile
+    var wifiDirectActive: Boolean = false
         private set
 
     val logs = CopyOnWriteArrayList<String>()
@@ -96,7 +105,7 @@ class RdaApp : Application() {
                 buf.put(snap.role.code.toByte())
                 buf.put(snap.state.code.toByte())
                 buf.put(engine.pendingCount().coerceIn(0, 255).toByte())
-                buf.putShort(engine.flags().toShort())
+                buf.putShort(meshFlags().toShort())
                 buf.putShort(8)
                 return buf.array()
             }
@@ -116,9 +125,37 @@ class RdaApp : Application() {
                 push("BLE $message")
             }
         })
+        wifi = WifiDirectMeshManager(this, object : WifiDirectMeshManager.Hooks {
+            override fun outgoingPackets(): List<ByteArray> =
+                engine.packetsToSend().map { EmergencyPacketCodec.encode(it) }
+
+            override fun onIncoming(bytes: ByteArray) {
+                try {
+                    engine.receive(EmergencyPacketCodec.decode(bytes))
+                } catch (e: Exception) {
+                    push("Wi‑Fi paquete inválido ${e.message}")
+                }
+            }
+
+            override fun onLog(message: String) {
+                push(message)
+            }
+
+            override fun onAvailabilityChanged(available: Boolean) {
+                wifiDirectActive = available
+                uiListeners.forEach { it("wifi") }
+            }
+        })
     }
 
     fun battery(): Int = BatteryReader.percent(this)
+
+    fun meshFlags(): Int {
+        var f = engine.flags()
+        if (wifiDirectActive) f = f or ProtocolConstants.FLAG_WIFI
+        if (ConnectivityHelper.isOnline(this)) f = f or ProtocolConstants.FLAG_GATEWAY
+        return f
+    }
 
     fun startMesh(sos: Boolean = false) {
         val intent = Intent(this, MeshService::class.java).putExtra(MeshService.EXTRA_SOS, sos)
@@ -128,9 +165,13 @@ class RdaApp : Application() {
             startService(intent)
         }
         ble.start()
+        if (Prefs.wifiDirectEnabled(this) && ConnectivityHelper.wifiDirectSupported(this)) {
+            wifi.start()
+        }
     }
 
     fun stopMesh() {
+        wifi.stop()
         ble.stop()
         stopService(Intent(this, MeshService::class.java))
     }

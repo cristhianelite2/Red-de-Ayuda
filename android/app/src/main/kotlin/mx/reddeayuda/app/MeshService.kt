@@ -24,6 +24,8 @@ class MeshService : Service() {
 
         when (intent?.action) {
             ACTION_IM_OK -> {
+                ContactAlerter.stopSosAlerts()
+                SosLocationTracker.stop()
                 RdaApp.instance.engine.imOk()
                 sosMode = false
                 showForeground(sos = false)
@@ -44,8 +46,10 @@ class MeshService : Service() {
     }
 
     private fun closeApplication() {
+        ContactAlerter.stopSosAlerts()
+        SosLocationTracker.stop()
         try {
-            RdaApp.instance.ble.stop()
+            RdaApp.instance.stopMesh()
         } catch (_: Exception) {
         }
         RdaApp.instance.push("Aplicación cerrada desde la notificación")

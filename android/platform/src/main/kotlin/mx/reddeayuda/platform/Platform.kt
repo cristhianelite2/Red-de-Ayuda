@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
@@ -13,6 +14,7 @@ import androidx.core.content.ContextCompat
 import mx.reddeayuda.protocol.GeoFix
 import mx.reddeayuda.protocol.ProtocolConstants
 import java.security.SecureRandom
+import java.util.concurrent.CopyOnWriteArrayList
 
 object DeviceIdentity {
     private const val PREF = "rda"
@@ -35,7 +37,9 @@ object PermissionCatalog {
     fun required(): Array<String> {
         val list = mutableListOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.SEND_SMS
         )
         if (Build.VERSION.SDK_INT >= 31) {
             list += Manifest.permission.BLUETOOTH_SCAN
@@ -44,6 +48,7 @@ object PermissionCatalog {
         }
         if (Build.VERSION.SDK_INT >= 33) {
             list += Manifest.permission.POST_NOTIFICATIONS
+            list += Manifest.permission.NEARBY_WIFI_DEVICES
         }
         return list.toTypedArray()
     }
@@ -55,6 +60,29 @@ object PermissionCatalog {
 }
 
 class GnssProvider(private val context: Context) {
+    @Volatile
+    private var cached: GeoFix = GeoFix()
+    private var clients = 0
+    private var listening = false
+    private val listeners = CopyOnWriteArrayList<(GeoFix) -> Unit>()
+    private val locationListener = LocationListener { loc ->
+        val fix = loc.toGeoFix()
+        cached = fix
+        listeners.forEach { it(fix) }
+    }
+
+    fun latest(): GeoFix {
+        val known = lastKnown()
+        return when {
+            !known.isUnknown -> {
+                cached = known
+                known
+            }
+            !cached.isUnknown -> cached
+            else -> GeoFix()
+        }
+    }
+
     fun lastKnown(): GeoFix {
         val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val providers = listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER)
@@ -67,12 +95,58 @@ class GnssProvider(private val context: Context) {
             }
         }
         val loc = best ?: return GeoFix()
-        return GeoFix(
-            latitudeMicrodegrees = (loc.latitude * 1_000_000.0).toInt(),
-            longitudeMicrodegrees = (loc.longitude * 1_000_000.0).toInt(),
-            accuracyMeters = loc.accuracy.toInt().coerceIn(0, ProtocolConstants.UNKNOWN_ACCURACY)
-        )
+        return loc.toGeoFix()
     }
+
+    fun addListener(listener: (GeoFix) -> Unit) {
+        listeners += listener
+    }
+
+    fun removeListener(listener: (GeoFix) -> Unit) {
+        listeners -= listener
+    }
+
+    @Synchronized
+    fun acquire() {
+        clients++
+        if (!listening) startListening()
+    }
+
+    @Synchronized
+    fun release() {
+        clients = (clients - 1).coerceAtLeast(0)
+        if (clients == 0) stopListening()
+    }
+
+    private fun startListening() {
+        val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        try {
+            listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER).forEach { provider ->
+                if (lm.isProviderEnabled(provider)) {
+                    lm.requestLocationUpdates(provider, 5_000L, 5f, locationListener)
+                }
+            }
+            listening = true
+        } catch (_: SecurityException) {
+            listening = false
+        }
+    }
+
+    private fun stopListening() {
+        val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        try {
+            lm.removeUpdates(locationListener)
+        } catch (_: Exception) {
+        }
+        listening = false
+    }
+
+    private fun android.location.Location.toGeoFix(): GeoFix =
+        GeoFix(
+            latitudeMicrodegrees = (latitude * 1_000_000.0).toInt(),
+            longitudeMicrodegrees = (longitude * 1_000_000.0).toInt(),
+            accuracyMeters = accuracy.toInt().coerceIn(0, ProtocolConstants.UNKNOWN_ACCURACY)
+        )
 }
 
 object BatteryReader {

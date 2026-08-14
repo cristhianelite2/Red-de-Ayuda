@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import mx.reddeayuda.platform.BluetoothHelper
+import mx.reddeayuda.platform.ConnectivityHelper
 import mx.reddeayuda.platform.OemBattery
 import mx.reddeayuda.platform.PermissionCatalog
 import mx.reddeayuda.protocol.DeviceRole
@@ -94,6 +95,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.btnSos).setOnClickListener { confirmSos() }
         findViewById<View>(R.id.cardRepeater).setOnClickListener { startRepeater() }
         findViewById<View>(R.id.cardRescue).setOnClickListener { startRescue() }
+        findViewById<View>(R.id.cardContacts).setOnClickListener {
+            startActivity(Intent(this, ContactsActivity::class.java))
+        }
         findViewById<MaterialButton>(R.id.btnEnableBluetooth).setOnClickListener {
             pendingSos = false
             requestBluetoothOn()
@@ -162,7 +166,9 @@ class MainActivity : AppCompatActivity() {
         pendingSos = false
         val app = RdaApp.instance
         app.startMesh(sos = true)
-        app.engine.createEmergency(app.gnss.lastKnown(), app.battery())
+        app.engine.createEmergency(app.gnss.latest(), app.battery())
+        SosLocationTracker.start()
+        ContactAlerter.startSosAlerts(this)
         refresh()
     }
 
@@ -295,7 +301,59 @@ class MainActivity : AppCompatActivity() {
         )
         findViewById<TextView>(R.id.txtMeta).text =
             "Batería ${app.battery()}%  ·  cola ${app.engine.pendingCount()}"
+        val n = ContactStore.list(this).size
+        findViewById<TextView>(R.id.txtContactsSub).text =
+            if (n == 0) {
+                getString(R.string.contacts_card_empty)
+            } else {
+                getString(R.string.contacts_count, n, ContactStore.MAX) +
+                    " — " + getString(R.string.contacts_card_sub)
+            }
+        refreshRadioChips()
         refreshBluetoothCard()
+    }
+
+    private fun refreshRadioChips() {
+        val app = RdaApp.instance
+        val btOn = BluetoothHelper.isEnabled(this)
+        styleChip(
+            findViewById(R.id.chipBluetooth),
+            if (btOn) getString(R.string.chip_bt_on) else getString(R.string.chip_bt_off),
+            btOn
+        )
+        val wifiOk = app.wifiDirectActive
+        styleChip(
+            findViewById(R.id.chipWifiDirect),
+            if (wifiOk) getString(R.string.chip_wifi_on) else getString(R.string.chip_wifi_off),
+            wifiOk
+        )
+        val online = ConnectivityHelper.isOnline(this)
+        styleChip(
+            findViewById(R.id.chipInternet),
+            if (online) getString(R.string.chip_net_on) else getString(R.string.chip_net_off),
+            online
+        )
+        val contacts = ContactStore.list(this).size
+        styleChip(
+            findViewById(R.id.chipContacts),
+            if (contacts == 0) {
+                getString(R.string.chip_contacts_none)
+            } else {
+                getString(R.string.chip_contacts, contacts, ContactStore.MAX)
+            },
+            contacts > 0
+        )
+        findViewById<View>(R.id.chipContacts).setOnClickListener {
+            startActivity(Intent(this, ContactsActivity::class.java))
+        }
+    }
+
+    private fun styleChip(view: TextView, label: String, ok: Boolean) {
+        view.text = label
+        view.setTextColor(getColor(if (ok) R.color.chip_ok else R.color.sos))
+        view.backgroundTintList = android.content.res.ColorStateList.valueOf(
+            if (ok) 0xFFDCEFE6.toInt() else 0xFFFBE9E7.toInt()
+        )
     }
 
     private fun refreshBluetoothCard() {

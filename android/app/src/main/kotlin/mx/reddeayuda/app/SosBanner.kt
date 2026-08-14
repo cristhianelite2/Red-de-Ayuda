@@ -33,12 +33,14 @@ object SosBanner {
             app.engine.createResponse(
                 OriginStatus.IM_HERE,
                 "ESTOY AQUI".toByteArray(Charsets.UTF_8),
-                app.gnss.lastKnown(),
+                app.gnss.latest(),
                 app.battery()
             )
             Toast.makeText(activity, "Enviado: estoy aquí", Toast.LENGTH_SHORT).show()
         }
         banner.findViewById<View>(R.id.bannerImOk).setOnClickListener {
+            ContactAlerter.stopSosAlerts()
+            SosLocationTracker.stop()
             RdaApp.instance.engine.imOk()
             RdaApp.instance.startMesh(sos = false)
             banner.visibility = View.GONE
